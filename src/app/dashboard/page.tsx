@@ -29,6 +29,7 @@ import {
   getMonthlyActivity,
 } from "@/modules/auth/dashboard/actions/index";
 import ContributionGraph from "@/modules/auth/dashboard/components/contribution-graph";
+import { Spinner } from "@/components/ui/spinner";
 
 const MainPage = () => {
   const { data: stats, isLoading } = useQuery({
@@ -135,7 +136,7 @@ const MainPage = () => {
 					<CardContent>
 						{isLoadingActivity ? (
 							<div className="h-80 w-full flex items-center justify-center">
-								<Spinner />
+								<div className="animate-spin rounded-full h-8 w-8 border-b-2 border-current"></div>
 							</div>
 						) : (
 							<div className="h-80 w-full">
