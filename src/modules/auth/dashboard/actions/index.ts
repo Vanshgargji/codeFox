@@ -189,3 +189,45 @@ export async function getMonthlyActivity() {
     return [];
   }
 }
+
+export async function getContributionStats() {
+	try {
+		const session = await auth.api.getSession({
+			headers: await headers(),
+		});
+
+		if (!session) {
+			throw new Error("Unauthorized");
+		}
+
+		const token = await getGithubAccessToken();
+		const octokit = new Octokit({ auth: token });
+
+		// Get the actual GitHub username from GitHub API
+		const { data: user } = await octokit.rest.users.getAuthenticated();
+		const username = user.login;
+
+		const calender = await fetchUserContribution(token, username);
+
+		if (!calender) {
+			return null;
+		}
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+		const contributions = calender.weeks.flatMap((week: any) =>              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+			week.contributionDays.map((day: any) => ({
+				date: day.date,
+				count: day.contributionCount,
+				level: Math.min(4, Math.floor(day.contributionCount / 3)),
+			}))
+		);
+
+		return {
+			contributions,
+			totalContributions: calender.totalContributions,
+		};
+	} catch (error) {
+		console.error("Error fetching contribution stats:", error);
+		return null;
+	}
+}
+
