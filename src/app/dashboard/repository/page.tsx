@@ -8,6 +8,7 @@ import { ExternalLink, Star, Search } from "lucide-react"
 import { useState, useEffect, useRef } from "react"
 import { useRepositories } from "@/modules/repository/hooks/use-repositories"
 import { RepositoryListSkeleton } from "@/modules/repository/components/repository-skeleton"    
+import { useConnectRepository } from "@/modules/repository/hooks/use-connect-repository"
 
 interface Repository {
   id: number;
@@ -31,6 +32,8 @@ const RepositoryPage = () => {
     hasNextPage,
     isFetchingNextPage,
     } = useRepositories();
+
+    const {mutate:connectRepo} = useConnectRepository();
 
     const [localConnectingId, setLocalConnectingId] = useState<number | null>(null);
     const [searchQuery, setSearchQuery] = useState("");
@@ -70,7 +73,7 @@ const RepositoryPage = () => {
             <div>
                 <h1 className="text-3xl font-bold tracking-tight">Repositories</h1>
                 <p className="text-muted-foreground">Manage and view all your GitHub repositories</p>
-            </div>
+            </div> 
             <RepositoryListSkeleton />
             </div>
         )
@@ -88,8 +91,19 @@ const RepositoryPage = () => {
         repo.full_name.toLowerCase().includes(searchQuery.toLowerCase()),
     );
 
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const handleConnect = (repo: any) => {}
+    const handleConnect = (repo: Repository) => {
+  setLocalConnectingId(repo.id)
+  connectRepo(
+    {
+      owner: repo.full_name.split("/")[0],
+      repo: repo.name,
+      githubId: repo.id
+    },
+    {
+      onSettled: () => setLocalConnectingId(null)
+    }
+  )
+}
 		
   return (
     <div className="space-y-4">
