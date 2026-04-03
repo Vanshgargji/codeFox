@@ -50,13 +50,19 @@ export const connectRepository = async (owner: string, repo: string, githubId: n
   const webhook = await createWebhook(owner, repo)
 
   if (webhook) {
-    await prisma.repository.create({
-      data: {
+    await prisma.repository.upsert({
+      where: {
+        githubId: BigInt(githubId)
+      },
+      create: {
         githubId: BigInt(githubId),
         name: repo,
         owner,
         fullName: `${owner}/${repo}`,
-        url: `https://github.com/ ${owner}/${repo}`,
+        url: `https://github.com/${owner}/${repo}`,
+        userId: session.user.id
+      },
+      update: {
         userId: session.user.id
       }
     })
