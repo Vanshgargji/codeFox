@@ -78,11 +78,6 @@ export async function indexCodebase(
 		} catch (error) {
 			console.error(`Failed to embed ${file.path}:`, error);
 		}
-
-		  return {
-    success: true,
-    vectorsStored: vectors.length,
-  };
 	}
 
 	if (vectors.length > 0) {
@@ -90,12 +85,17 @@ export async function indexCodebase(
 
 		for (let i = 0; i < vectors.length; i += batchSize) {
 			const batch = vectors.slice(i, i + batchSize);
+			console.log(`Upserting batch with ${batch.length} vectors to Pinecone...`);
 			await pineconeIndex.upsert({ records: batch });	
 			console.log("Upserting to Pinecone...");
 		}
 	}
 
 	console.log("Indexing completed");
+	return {
+		success: true,
+		vectorsStored: vectors.length,
+	};
 }
 
 export async function retrieveContext(
