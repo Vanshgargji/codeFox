@@ -13,9 +13,11 @@ if (!apiKey) {
 	throw new Error("PINECONE_DB_API_KEY environment variable is required");
 }
 
+
+
 export const pinecone = new Pinecone({
 	apiKey,
 });
 
 // The specific index used for Code Horse embeddings
-export const pineconeIndex = pinecone.Index("codefox-vector-embedding-v1");
+export const pineconeIndex = pinecone.Index("codefox-vector-embedding");
