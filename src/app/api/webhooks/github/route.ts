@@ -1,3 +1,5 @@
+import { revalidatePath } from "next/cache";
+import { reviewPullRequest } from "@/modules/ai/actions";
 import { NextResponse, NextRequest } from "next/server";
 
 export async function POST(req: NextRequest) {
@@ -8,6 +10,20 @@ export async function POST(req: NextRequest) {
 
     if (event === "ping") {
       return NextResponse.json({ message: "Pong" }, { status: 200 })
+    }
+
+    if(event === "pull_request") {
+      const action = body.action;
+      const repo= body.repository.full_name;
+      const prNumber = body.number;
+
+      const [owner, repoName] = repo.split("/");
+      
+      if(action === "opened" || action === "synchronize") {
+        reviewPullRequest(owner, repoName, prNumber)
+        .then(() =>console.log(`Review completed for ${repo} PR #${prNumber}`))
+        .catch((error) => console.error(`Error reviewing PR #${prNumber} in ${repo}:`, error));
+      }
     }
 
     // TODO: HANDLE LATER
