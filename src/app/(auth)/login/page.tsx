@@ -1,14 +1,18 @@
 import LoginUI from "@/modules/auth/components/login-ui";
 import { requireUnAuth } from "@/modules/auth/utils/auth-utils";
+import { Suspense } from "react";
+export const dynamic = "force-dynamic";
 
 const LoginPage = async () => {
 	await requireUnAuth()
 
 	return (
-		<div>
-			<LoginUI />
-		</div>
-	);
+    <div>
+      <Suspense fallback={<div>Loading...</div>}>
+        <LoginUI />
+      </Suspense>
+    </div>
+  );
 };
 
 export default LoginPage;
