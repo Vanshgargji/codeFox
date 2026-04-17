@@ -6,10 +6,11 @@
 generator client {
   provider = "prisma-client"
   output   = "../src/lib/generated/prisma"
+  previewFeatures = ["driverAdapters"] // required for prismaPg
 }
 
 datasource db {
-  provider = "postgresql"
+  provider  = "postgresql"
 }
 
 model User {
