@@ -40,7 +40,7 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 
 [![Live Demo](https://img.shields.io/badge/Live-Demo-brightgreen?style=for-the-badge)](https://codefoxy.vercel.app)
 
-![Code Fox Poster](.\public\code_fox_logo.png)
+![Code Fox Logo](./public/code_fox_logo.png)
 
 **Code Fox** is an intelligent, AI-powered code review assistant designed to streamline your development workflow. By connecting directly with your GitHub repositories, Code Fox automatically analyzes pull requests, providing instant, context-aware feedback to help maintain code quality and catch issues early.
 
