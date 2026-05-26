@@ -105,6 +105,11 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 └─────────────────┘ └───────────────┘ └─────────────────┘
 ```
 
+### 🗄️ Database Architecture
+
+The relational schema and table relationships for this project are fully documented and can be viewed interactively here:
+👉 **[View CodeFox Database Documentation](https://dbdocs.io/vansgarg55/CodeFox)**
+
 ### Data Flow
 
 1.  **GitHub Webhook**: A `pull_request` event (`opened` or `synchronize`) is sent to `/api/webhooks/github`

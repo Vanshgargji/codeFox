@@ -130,3 +130,7 @@ model Verification {
   @@index([identifier])
   @@map("verification")
 }
+
+generator dbml {
+  provider = "prisma-dbml-generator"
+}

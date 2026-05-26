@@ -1,0 +1,106 @@
+//// ------------------------------------------------------
+//// THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+//// ------------------------------------------------------
+
+Table user {
+  id String [pk]
+  name String [not null]
+  email String [unique, not null]
+  emailVerified Boolean [not null, default: false]
+  image String
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+  sessions session [not null]
+  accounts account [not null]
+  repositories repository [not null]
+  usage user_usage
+  subscriptionTier String [not null, default: 'FREE']
+  subscriptionStatus String
+  polarCustomerId String [unique]
+  polarSubscriptionId String [unique]
+}
+
+Table repository {
+  id String [pk]
+  githubId BigInt [unique, not null]
+  name String [not null]
+  owner String [not null]
+  fullName String [not null]
+  url String [not null]
+  userId String [not null]
+  user user [not null]
+  reviews review [not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+}
+
+Table review {
+  id String [pk]
+  repositoryId String [not null]
+  repository repository [not null]
+  prNumber Int [not null]
+  prTitle String [not null]
+  prUrl String [not null]
+  review String [not null]
+  status String [not null, default: 'pending']
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+}
+
+Table user_usage {
+  id String [pk]
+  userId String [unique, not null]
+  user user [not null]
+  repositoryCount Int [not null, default: 0]
+  reviewCounts Json [not null, default: '{}']
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+}
+
+Table session {
+  id String [pk]
+  expiresAt DateTime [not null]
+  token String [unique, not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+  ipAddress String
+  userAgent String
+  userId String [not null]
+  user user [not null]
+}
+
+Table account {
+  id String [pk]
+  accountId String [not null]
+  providerId String [not null]
+  userId String [not null]
+  user user [not null]
+  accessToken String
+  refreshToken String
+  idToken String
+  accessTokenExpiresAt DateTime
+  refreshTokenExpiresAt DateTime
+  scope String
+  password String
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+}
+
+Table verification {
+  id String [pk]
+  identifier String [not null]
+  value String [not null]
+  expiresAt DateTime [not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+}
+
+Ref: repository.userId > user.id [delete: Cascade]
+
+Ref: review.repositoryId > repository.id [delete: Cascade]
+
+Ref: user_usage.userId - user.id [delete: Cascade]
+
+Ref: session.userId > user.id [delete: Cascade]
+
+Ref: account.userId > user.id [delete: Cascade]
