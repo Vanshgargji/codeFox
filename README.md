@@ -119,7 +119,7 @@ CodeFox uses a Pinecone-backed Semantic Code RAG pipeline to retrieve repository
 - **Full Repository Indexing** using Pinecone vector embeddings.
 - **Context-Aware PR Reviews** powered by Retrieval-Augmented Generation (RAG).
 
-### 🗄️ Database Architecture
+## 🗄️ Database Architecture
 
 The relational schema and table relationships for this project are fully documented and can be viewed interactively here:
 👉 **[View CodeFox Database Documentation](https://dbdocs.io/vansgarg55/CodeFox)**
