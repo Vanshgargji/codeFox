@@ -21,7 +21,3 @@ The retrieval layer was evaluated using repository-level semantic search queries
 - Achieved up to **100% Hit Rate** and **95.2% Recall**.
 - Average retrieval latency remained around **2.32 seconds**.
 - Retrieval results are used as context for Gemini-powered PR review generation.
-
-## Evaluation Screenshot
-
-![Metrics Dashboard](./metrics.png)
