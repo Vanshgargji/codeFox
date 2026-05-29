@@ -105,6 +105,20 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 └─────────────────┘ └───────────────┘ └─────────────────┘
 ```
 
+## 📈 Retrieval Performance Metrics
+
+CodeFox uses a Pinecone-backed Semantic Code RAG pipeline to retrieve repository context before generating pull request reviews.
+
+📄 **Detailed Benchmark Report:** [View Metrics](metrics.md)
+
+### Highlights
+
+- **100% Hit Rate** across 2 evaluation datasets.
+- **95.2% Recall** for repository-scale semantic code retrieval.
+- **2.32s Average Retrieval Latency**.
+- **Full Repository Indexing** using Pinecone vector embeddings.
+- **Context-Aware PR Reviews** powered by Retrieval-Augmented Generation (RAG).
+
 ### 🗄️ Database Architecture
 
 The relational schema and table relationships for this project are fully documented and can be viewed interactively here:
