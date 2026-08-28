@@ -294,6 +294,9 @@ Manage your connected GitHub repositories.
 Detailed AI-generated feedback on your pull requests.
 ![Reviews Page](./public/reviews_page.png)
 
+### Sequence Diagram
+<img width="748" height="787" alt="image" src="https://github.com/user-attachments/assets/b43c4f6a-e8e5-4a04-ba7b-020aeb8481fb" />
+
 ### Settings
 Configure your preferences and account details.
 ![Settings Page](./public/settings_page.png)
